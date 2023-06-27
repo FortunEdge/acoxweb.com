@@ -1,18 +1,19 @@
-import { Experimental_CssVarsProvider as MuiCssVarsProvider } from '@mui/material';
-import { experimental_extendTheme  as extendTheme} from '@mui/material/styles'
-import { ReactNode } from 'react';
+import { ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles'
+import { ReactNode, useContext } from 'react';
+import { ThemeModeContext } from './ThemeModeContextProvider';
 
 export interface CssVarsProviderProps {
     children: ReactNode
 }
 
-const theme = extendTheme();
-
 const CssVarsProvider = ({children} : CssVarsProviderProps) => {
+    const {getThemeOptions} = useContext(ThemeModeContext)
+    
     return (
-        <MuiCssVarsProvider theme={theme}>
+        <ThemeProvider theme={getThemeOptions()}>
             {children}
-        </MuiCssVarsProvider>
+        </ThemeProvider>
     )
 }
 

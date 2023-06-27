@@ -1,12 +1,14 @@
-import './App.css';
 import SelfCard from './components/SelfCard';
 import CssVarsProvider from './theming/CssVarsProvider';
+import ThemeModeContextProvider from './theming/ThemeModeContextProvider';
 
 function App() {
   return (
-    <CssVarsProvider>
-      <SelfCard/>
-    </CssVarsProvider>
+    <ThemeModeContextProvider>
+      <CssVarsProvider>
+        <SelfCard/>
+      </CssVarsProvider>
+    </ThemeModeContextProvider>
   );
 }
 
