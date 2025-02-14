@@ -1,13 +1,14 @@
-import { ThemeOptions } from "@mui/material";
-import { ReactNode, createContext, useContext, useState } from "react";
-import DarkTheme from "./DarkTheme";
-import LightTheme from "./LightTheme";
+import { ThemeOptions } from '@mui/material'
+import { ReactNode, createContext, useState } from 'react'
+import DarkTheme from './DarkTheme'
+import LightTheme from './LightTheme'
 
 export interface ThemeModeContextProviderProps {
     children: ReactNode
 }
 
 export interface ThemeModeContextType {
+    theme: ThemeType;
     toggleTheme: () => void;
     getThemeOptions: () => ThemeOptions;
 }
@@ -17,17 +18,17 @@ export enum ThemeType {
     DARK = 'dark'
 }
 
-export const ThemeModeContext = createContext<ThemeModeContextType>({toggleTheme: () => {}, getThemeOptions: () => ({})})
+export const ThemeModeContext = createContext<ThemeModeContextType>({theme:ThemeType.LIGHT, toggleTheme: () => {}, getThemeOptions: () => ({})})
 
 const ThemeModeContextProvider = ({children}: ThemeModeContextProviderProps) => {
-    const [currentMode, setMode] = useState<ThemeType>(ThemeType.LIGHT)
+    const [theme, setMode] = useState<ThemeType>(ThemeType.LIGHT)
 
     const toggleTheme = () => {
         setMode(previous => previous === ThemeType.LIGHT ? ThemeType.DARK : ThemeType.LIGHT)
     }
 
     const getThemeOptions = () => {
-        switch (currentMode) {
+        switch (theme) {
             case ThemeType.DARK:
                 return DarkTheme
             case ThemeType.LIGHT:
@@ -38,10 +39,10 @@ const ThemeModeContextProvider = ({children}: ThemeModeContextProviderProps) => 
 
 
     return (
-        <ThemeModeContext.Provider value={{toggleTheme, getThemeOptions}}>
+        <ThemeModeContext.Provider value={{theme, toggleTheme, getThemeOptions}}>
             {children}
         </ThemeModeContext.Provider>
     )
 }
 
-export default ThemeModeContextProvider;
+export default ThemeModeContextProvider

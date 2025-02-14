@@ -1,7 +1,7 @@
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
-import { ReactNode, useContext } from 'react';
-import { ThemeModeContext } from './ThemeModeContextProvider';
+import { ReactNode, useContext, useMemo } from 'react'
+import { ThemeModeContext } from './ThemeModeContextProvider'
 
 export interface CssVarsProviderProps {
     children: ReactNode
@@ -9,12 +9,14 @@ export interface CssVarsProviderProps {
 
 const CssVarsProvider = ({children} : CssVarsProviderProps) => {
     const {getThemeOptions} = useContext(ThemeModeContext)
-    
+
+    const theme = useMemo(() => createTheme(getThemeOptions()), [getThemeOptions])
+
     return (
-        <ThemeProvider theme={getThemeOptions()}>
+        <ThemeProvider theme={theme}>
             {children}
         </ThemeProvider>
     )
 }
 
-export default CssVarsProvider;
+export default CssVarsProvider

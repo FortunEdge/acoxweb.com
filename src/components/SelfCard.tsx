@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material"
+import { Card, Typography } from '@mui/material'
 
 /**
  * My digital "buisness card" if I'm a buisness, which I'm not
@@ -14,4 +14,4 @@ const SelfCard = () => {
     )
 }
 
-export default SelfCard;
+export default SelfCard
